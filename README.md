@@ -62,7 +62,7 @@
 - Broadcast bởi DHCP server đến DHCP client xác nhận thông tin từ gói DHCP Request.
 - Tất cả thông tin cấu hình IP sẽ được gửi đến cho client và kết thúc quá trình cấp phát IP.
 
-*DHCP Nack*
+*DHCP Nack*:
 Broadcast từ server, khi server từ chối gói DHCP Request.
 
 <a name="3f"></a>
