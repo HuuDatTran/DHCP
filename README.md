@@ -7,17 +7,17 @@
 
 [3.Các loại bản tin DHCP] (#3)
 
-  [a.DHCP Discover] (#3a)
+- [a.DHCP Discover] (#3a)
 
-  [b.DHCP Offer] (#3b)
+- [b.DHCP Offer] (#3b)
   
-  [c.DHCP Request] (#3c)
+- [c.DHCP Request] (#3c)
 
-  [d.DHCP Ack/Nack] (#3d)
+- [d.DHCP Ack/Nack] (#3d)
 
-  [e.DHCP Decline] (#3e)
+- [e.DHCP Decline] (#3e)
 
-  [f.DHCP Release] (#3f)
+- [f.DHCP Release] (#3f)
   
 [4.DHCP Header] (#4)
 
@@ -26,19 +26,19 @@
 [6.Tham Khảo] (#6)
 
 <a name="1"></a>
-### [1.Khái Niệm]
+### 1.Khái Niệm
 - Một giao thức cấu hình tự động địa chỉ IP cho các máy trạm.
 - DHCP có 2 version: cho IPv4 và IPv6.
 
 <a name="2"></a>
-### [2.Vai Trò]
+### 2.Vai Trò
 - Cấu hình động các máy.
 - Cấu hình IP cho các máy một cách liền mạch
 - Tập chung quản trị thông tin về cấu hình IP.
 - DHCP còn cung cấp thông tin cấu hình khác, cụ thể như DNS.
 
 <a name"3"></a>
-### [3.Các loại bản tin DHCP]
+### 3.Các loại bản tin DHCP
 
 <a name"3a"></a>
 #### a.DHCP Discover
