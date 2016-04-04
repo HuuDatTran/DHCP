@@ -7,11 +7,11 @@
 
 [3.Các loại bản tin DHCP] (#3)
 
-- [a.DHCP Discover] (#3a)
+- [A.DHCP Discover] (#3a)
 
-- [b.DHCP Offer] (#3b)
+- [B.DHCP Offer] (#3b)
   
-- [c.DHCP Request] (#3c)
+- [C.DHCP Request] (#3c)
 
 - [d.DHCP Ack/Nack] (#3d)
 
@@ -58,6 +58,7 @@
 
 <a name="3d"></a>
 #### d.DHCP Ack/Nack
+
 *DHCP Ack*
 - Broadcast bởi DHCP server đến DHCP client xác nhận thông tin từ gói DHCP Request.
 - Tất cả thông tin cấu hình IP sẽ được gửi đến cho client và kết thúc quá trình cấp phát IP.
@@ -76,15 +77,15 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 
 <a name="4"></a>
 ### 4.DHCP Header
-<img src="http://i.imgur.com/9DNIExw.jpg" heigt=50% weight=60% />
+<img src="http://i.imgur.com/9DNIExw.jpg" height=20% weight=60% />
 
-##### a.Opcode
+##### A.Opcode
 - Dung lượng: 8 bits
 - Vai trò: Thể hiện loại gói tin DHCP.
 - Value 1: các gói tin request.
 - Value 2: các gói tin reply.
 
-##### b.Hardware type
+##### B.Hardware type
 - Dung lượng: 8 bits
 - Vai trò: Quy định cụ thể loại hardware.
 - Value 1: Ethernet (10Mb)
@@ -94,30 +95,30 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 - Value 17: HDLC
 - Value 18: Fibre Chanel
 
-##### c.Hardware length
+##### C.Hardware length
 - Dung lượng: 8 bits
 - Ý nghĩa: Quy định cụ thể độ dài của địa chỉ hardware
 
-##### d.Hop counts
+##### D.Hop counts
 - Dung lượng: 8 bits
 - Dùng cho relay agents
 
-##### e.Transaction Identifier
+##### E.Transaction Identifier
 - Dung lượng: 32 bits
 - Được tạo bởi client, dùng để liên kết giữa request và replies của client và server.
 
-##### f.Number of seconds
+##### F.Number of seconds
 - Dung lượng: 16 bits
 - Quy định số giây kể từ khi client bắt đầu thuê hoặc xin cấp lại IP
 - Nó cũng có thể được dùng bởi dhcp server đang bận để ưu tiên trả lời những yêu cầu nổi bật của clients.
 
-##### g.Flags
+##### G.Flags
 <img src="http://i.imgur.com/on5i4m8.png" />
 
 - Dung lượng: 16 bits
 - B, broadcast: 1 bits = 1 nếu client không biết được ip trong khi đang gửi yêu cầu.
 
-##### h.Client IP address
+##### H.Client IP address
 - Dung lượng: 32 bits
 - Client sẽ đặt IP của mình trong trường này nếu và chỉ nếu nó đang có IP hay đang xin cấp lại IP, không thì mặc định = 0
 
@@ -127,19 +128,20 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 
 ##### K.Server IP address
 - Dung lượng: 32 bits.
+
 ##### L.Gateway IP address
 - Dung lượng: 32 bits.
 - Sử dụng trong relay agent.
 
-##### L.Client hardware address
+##### M.Client hardware address
 - Dung lượng: 16 bytes.
 - Địa chỉ lớp 2 của client, dùng để định danh.
 
-##### M.Server host name
+##### N.Server host name
 - Dung lượng: 64 bytes
 - Khi server gửi gói tin offer hay ack thì sẽ đặt tên của nó vào trường này, nó có thể là nickname hoặc tên miền dns.
 
-##### N.Boot filename
+##### O.Boot filename
 - Dung lượng: 128 bytes.
 - Sử dụng bời client để yêu cầu loại tập tin khởi động cụ thể trong gói tin discover.
 - Sử dụng bởi server để chỉ rõ toàn bộ đường dẫn, tên file của file khởi động trong gói tin offer.
