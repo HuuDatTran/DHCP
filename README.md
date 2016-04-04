@@ -77,7 +77,7 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 
 <a name="4"></a>
 ### 4.DHCP Header
-<img src="http://i.imgur.com/9DNIExw.jpg" height=20% weight=60% />
+<img src="http://i.imgur.com/9DNIExw.jpg" height=20% width=60% />
 
 ##### A.Opcode
 - Dung lượng: 8 bits
