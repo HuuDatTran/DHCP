@@ -76,7 +76,7 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 
 <a name="4"></a>
 ### 4.DHCP Header
-<img src="http://i.imgur.com/9DNIExw.jpg" />
+<img src="http://i.imgur.com/9DNIExw.jpg" heigt=50% weight=60% />
 
 ##### a.Opcode
 - Dung lượng: 8 bits
@@ -110,6 +110,7 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 - Dung lượng: 16 bits
 - Quy định số giây kể từ khi client bắt đầu thuê hoặc xin cấp lại IP
 - Nó cũng có thể được dùng bởi dhcp server đang bận để ưu tiên trả lời những yêu cầu nổi bật của clients.
+
 ##### g.Flags
 <img src="http://i.imgur.com/on5i4m8.png" />
 
@@ -157,7 +158,7 @@ nó gửi thông điệp "DHCP Offer" chứa địa chỉ MAC của khách, đ�
 
 <a name="6"></a>
 ### 6.Tham Khảo
-1. http://www.networksorcery.com/enp/protocol/dhcp.htm#Client hardware address
+1. http://www.networksorcery.com/enp/protocol/dhcp.htm
 2. http://www.tcpipguide.com/free/t_DHCPMessageFormat.htm
 3. http://vdo.vn/cong-nghe-thong-tin/cac-khai-niem-co-ban-ve-dhcp.html
 
