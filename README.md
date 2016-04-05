@@ -7,11 +7,11 @@
 
 [3.Các loại bản tin DHCP] (#3)
 
-- [A.DHCP Discover] (#3a)
+- [a.DHCP Discover] (#3a)
 
-- [B.DHCP Offer] (#3b)
+- [b.DHCP Offer] (#3b)
   
-- [C.DHCP Request] (#3c)
+- [c.DHCP Request] (#3c)
 
 - [d.DHCP Ack/Nack] (#3d)
 
@@ -29,6 +29,7 @@
 ### 1.Khái Niệm
 - Một giao thức cấu hình tự động địa chỉ IP cho các máy trạm.
 - DHCP có 2 version: cho IPv4 và IPv6.
+- DHCP sử dụng port 67,68 và dùng giao thức UDP.
 
 <a name="2"></a>
 ### 2.Vai Trò
@@ -79,72 +80,22 @@ Broadcast từ client nếu client từ chối IP đã được cấp.
 ### 4.DHCP Header
 <img src="http://i.imgur.com/9DNIExw.jpg" height=5% width=60% />
 
-##### A.Opcode
-- Dung lượng: 8 bits
-- Vai trò: Thể hiện loại gói tin DHCP.
-- Value 1: các gói tin request.
-- Value 2: các gói tin reply.
-
-##### B.Hardware type
-- Dung lượng: 8 bits
-- Vai trò: Quy định cụ thể loại hardware.
-- Value 1: Ethernet (10Mb)
-- Value 6: IEEE 802
-- Value 15: Frame Relay
-- Value 16: ATM
-- Value 17: HDLC
-- Value 18: Fibre Chanel
-
-##### C.Hardware length
-- Dung lượng: 8 bits
-- Ý nghĩa: Quy định cụ thể độ dài của địa chỉ hardware
-
-##### D.Hop counts
-- Dung lượng: 8 bits
-- Dùng cho relay agents
-
-##### E.Transaction Identifier
-- Dung lượng: 32 bits
-- Được tạo bởi client, dùng để liên kết giữa request và replies của client và server.
-
-##### F.Number of seconds
-- Dung lượng: 16 bits
-- Quy định số giây kể từ khi client bắt đầu thuê hoặc xin cấp lại IP
-- Nó cũng có thể được dùng bởi dhcp server đang bận để ưu tiên trả lời những yêu cầu nổi bật của clients.
-
-##### G.Flags
-<img src="http://i.imgur.com/on5i4m8.png" />
-
-- Dung lượng: 16 bits
-- B, broadcast: 1 bits = 1 nếu client không biết được ip trong khi đang gửi yêu cầu.
-
-##### H.Client IP address
-- Dung lượng: 32 bits
-- Client sẽ đặt IP của mình trong trường này nếu và chỉ nếu nó đang có IP hay đang xin cấp lại IP, không thì mặc định = 0
-
-##### I.Your IP address
-- Dung lượng: 32 bits.
-- IP được cấp bởi server để đăng kí cho client.
-
-##### K.Server IP address
-- Dung lượng: 32 bits.
-
-##### L.Gateway IP address
-- Dung lượng: 32 bits.
-- Sử dụng trong relay agent.
-
-##### M.Client hardware address
-- Dung lượng: 16 bytes.
-- Địa chỉ lớp 2 của client, dùng để định danh.
-
-##### N.Server host name
-- Dung lượng: 64 bytes
-- Khi server gửi gói tin offer hay ack thì sẽ đặt tên của nó vào trường này, nó có thể là nickname hoặc tên miền dns.
-
-##### O.Boot filename
-- Dung lượng: 128 bytes.
-- Sử dụng bời client để yêu cầu loại tập tin khởi động cụ thể trong gói tin discover.
-- Sử dụng bởi server để chỉ rõ toàn bộ đường dẫn, tên file của file khởi động trong gói tin offer.
+Tên Field | Dung Lượng | Mô tả |
+--- | --- | --- |
+Opcode | 8 bits | Thể hiện loại gói tin DHCP.Value 1:các gói tin request, Value 2: các gói tin reply. |
+Hardware type | 8 bits | Quy định cụ thể loại hardware. Value 1: Ethernet (10 Mb), Value 6: IEEE 802 ... |
+Hardware length | 8 bits | Quy định cụ thể độ dài của địa chỉ hardware |
+Hop counts | 8 bits | Dùng cho relay agents |
+Transaction Identifier | 32 bits | Được tạo bởi client, dùng để liên kết giữa request và replies của client và server. |
+Number of seconds | 16 bits | Quy định số giây kể từ khi client bắt đầu thuê hoặc xin cấp lại IP |
+Flags | 16 bits | <img src="http://i.imgur.com/on5i4m8.png" /> B, broadcast: 1 bits = 1 nếu client không biết được ip trong khi đang gửi yêu cầu. |
+Client IP address | 32 bits | Client sẽ đặt IP của mình trong trường này nếu và chỉ nếu nó đang có IP hay đang xin cấp lại IP, không thì mặc định = 0 |
+Your IP address | 32 bits | IP được cấp bởi server để đăng kí cho client |
+Server IP address | 32 bits | --- |
+Gateway IP address | 32 bits | Sử dụng trong relay agent |
+Client hardware address | 16 bytes | Địa chỉ lớp 2 của client, dùng để định danh |
+Server host name | 64 bytes | Khi server gửi gói tin offer hay ack thì sẽ đặt tên của nó vào trường này, nó có thể là nickname hoặc tên miền dns |
+Boot filename | 128 bytes | Sử dụng bời client để yêu cầu loại tập tin khởi động cụ thể trong gói tin discover.Sử dụng bởi server để chỉ rõ toàn bộ đường dẫn, tên file của file khởi động trong gói tin offer |
 
 <a name="5"><a>
 ### 5.Cách thức hoạt động
