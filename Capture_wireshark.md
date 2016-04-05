@@ -10,21 +10,21 @@
 
 <a name="1"></a>
 ### 1.Khởi động wireshark
-* Cách 1*
+Cách 1
 
 <img src="http://i.imgur.com/GCvnvCJ.png" />
 
 - Chọn card
 - Bấm vào biểu tượng số 1 hoặc số 2 để bắt đầu capture.
 
-* Cách 2*
+Cách 2
 
 <img src="http://i.imgur.com/Nx0duCE.png" />
 
 - Bấm vào "Capture" trên thanh công cụ
 - Chọn card
 - Bấm start để bắt đầu capture
--
+
 <a name="2"></a>
 ### 2.Giải phóng và cấp mới IP
 
@@ -36,7 +36,11 @@
 ### 3.Lọc các gói tin DHCP
 - Gõ "bootp" vào ô filter.
 
+<img src="http://i.imgur.com/YTvjYf9.png" />
+
 - Hoặc bạn có thể vào trực tiếp 1 gói tin dhcp bất kì để lọc theo boostrap protocol
+
+<img src="http://i.imgur.com/sn6Sn9b.png" />
 
 <a name="4"></a>
 ### 4.Phân tích các gói tin DHCP
