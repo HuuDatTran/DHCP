@@ -10,7 +10,21 @@
 
 <a name="1"></a>
 ### 1.Khởi động wireshark
+* Cách 1*
 
+<img src="http://i.imgur.com/GCvnvCJ.png" />
+
+- Chọn card
+- Bấm vào biểu tượng số 1 hoặc số 2 để bắt đầu capture.
+
+* Cách 2*
+
+<img src="http://i.imgur.com/Nx0duCE.png" />
+
+- Bấm vào "Capture" trên thanh công cụ
+- Chọn card
+- Bấm start để bắt đầu capture
+-
 <a name="2"></a>
 ### 2.Giải phóng và cấp mới IP
 
