@@ -65,6 +65,7 @@
 
 
 #### d.DHCP Ack
+
 <img src="http://i.imgur.com/y9Jztbq.png" />
 
 Đây cũng là gói tin unicast gửi từ server đến client để xác nhận lại các thông tin đã cấp cho client
