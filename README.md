@@ -48,24 +48,24 @@
 
 <a name="3b"></a>
 #### b.DHCP Offer
-- Xuất phát từ DHCP server sau khi nhận được gói Discover của client.
+- Unicast từ DHCP server sau khi nhận được gói Discover của client.
 - Gói tin bao gồm thông tin IP đề nghị cấp cho client như: IP address, Subnet Mask, Gateway...
 - Có thể sẽ có nhiều DHCP server cùng gửi gói tin này, Client sẽ nhận và xử lý gói Offer đến trước.
 
 <a name="3c"></a>
 #### c.DHCP Resquest
 - Broadcast từ client khi nhận được gói DHCP Offer.
-- Nội dung gói tin: xác nhận thông tin IP sẽ nhận từ server.
+- Nội dung gói tin: xác nhận thông tin IP sẽ nhận từ server để cho các server khác không gửi gói tin offer cho clien đấy nữa.
 
 <a name="3d"></a>
 #### d.DHCP Ack/Nack
 
 *DHCP Ack*
-- Broadcast bởi DHCP server đến DHCP client xác nhận thông tin từ gói DHCP Request.
+- Unicast bởi DHCP server đến DHCP client xác nhận thông tin từ gói DHCP Request.
 - Tất cả thông tin cấu hình IP sẽ được gửi đến cho client và kết thúc quá trình cấp phát IP.
 
 *DHCP Nack*:
-Broadcast từ server, khi server từ chối gói DHCP Request.
+Unicast từ server, khi server từ chối gói DHCP Request.
 
 <a name="3f"></a>
 #### f.DHCP Decline
@@ -106,7 +106,7 @@ Quá trình này diễn ra qua 4 bước chính:
 - Client broadcast yêu cầu thuê đia chỉ IP trên hệ thống mạng (DHCPDiscover).
 - Nhiều DHCP server có thể nhận thông điệp và chuẩn bị IP cho client.Nếu máy chủ có cấu hình hợp lệ cho client, 
 nó gửi thông điệp "DHCP Offer" chứa địa chỉ MAC của khách, địa chỉ IP, subnet mask, địa chỉ IP của server và thời gian cho thuê đến client.
-- Khi client nhận được cái thông DHCP Offer nó sẽ chọn 1 trong các địa chỉ IP, sau đó sẽ gửi DHCP Request để yêu cầu IP tương ứng với DHCP server đó.
+- Khi client nhận được các thông điệp DHCP Offer nó sẽ chọn 1 trong các địa chỉ IP, sau đó sẽ gửi DHCP Request để yêu cầu IP tương ứng với DHCP server đó.
 - Cuối cùng, DHCP Server xác nhận lại với client bằng thông điệp DHCP Acknowlegde.Ngoài ra server còn gửi kèm những thông tin bổ sung như địa chỉ gateway mặc định, địa chỉ DNS Server.
 
 <a name="6"></a>
