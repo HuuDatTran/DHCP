@@ -63,6 +63,7 @@ trong 1 địa chỉ ip nằm trong rải đã cho.
 	option time-offset 				-18000;		#Eastern Standard Time
 	range 10.0.1.11 10.0.1.20;
 }`
+
 <img src="http://i.imgur.com/HXwhXF4.png" />
 
 - Sau đó start dịch vụ dhcp trên server.
@@ -70,6 +71,7 @@ trong 1 địa chỉ ip nằm trong rải đã cho.
 <img src="http://i.imgur.com/bf2zS2I.png" />
 
 - Kiểm tra trên client(win7)
+
 <img src="http://i.imgur.com/1OaPS9S.png" />
 
 <a name="2b"></a>
@@ -92,6 +94,7 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 <img src="http://i.imgur.com/JYSJSrh.png" />
 
 - Kiểm tra trên client
+
 <img src="http://i.imgur.com/ytdn9Ne.png" />
 
 <a name="2c"></a>
@@ -100,21 +103,21 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 khai báo host.
 - Với kiểu khai báo này thì card mạng có địa chỉ Mac 00-0C-29-FE-01-4E sẽ luôn nhận địa chỉ 10.0.1.32
 
-`default-lease-time 600;
-max-lease-time 7200;
-option subnet-mask 255.255.255.0;
-option broadcast-address 10.0.1.255;
-option routers 10.0.1.1;
-option domain-name-servers 10.0.1.1;
-option domain-search "example.com";
-subnet 10.0.1.0 netmask 255.255.255.0 {
+`default-lease-time 600;`
+`max-lease-time 7200;`
+`option subnet-mask 255.255.255.0;`
+`option broadcast-address 10.0.1.255;`
+`option routers 10.0.1.1;`
+`option domain-name-servers 10.0.1.1;`
+`option domain-search "example.com";`
+`subnet 10.0.1.0 netmask 255.255.255.0 {`
    
-}
-host WIN7 {
-   option host-name "win7.example.com";
-   hardware ethernet 00:0C:29:FE:01:4E;
-   fixed-address 10.0.1.32;
-}`
+`}`
+`host WIN7 {`
+`   option host-name "win7.example.com";`
+`   hardware ethernet 00:0C:29:FE:01:4E;`
+`   fixed-address 10.0.1.32;`
+`}`
 
 <img src="http://i.imgur.com/NOpapxF.png" />
 
