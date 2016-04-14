@@ -54,13 +54,14 @@ thì nó sẽ được cấp động.
 - Trong ví dụ này, có các tùy chọn chung cho các clients trong subnet được khai báo.Các clients được đăng kí
 trong 1 địa chỉ ip nằm trong rải đã cho.
 - Bạn khai báo vào file /etc/dhcp/dhcpd.conf như sau:
-`subnet 10.0.0.0 netmask 255.255.255.0 {
+
+`subnet 10.0.1.0 netmask 255.255.255.0 {
 	option routers					10.0.0.1;
 	option subnet-mask 				255.255.255.0;
 	option domain-search 			"example.com";
-	option domain-name-servers 		10.0.0.1;
+	option domain-name-servers 		10.0.1.1;
 	option time-offset 				-18000;		#Eastern Standard Time
-	range 10.0.0.11 10.0.0.20;
+	range 10.0.1.11 10.0.1.20;
 }`
 <img src="http://i.imgur.com/HXwhXF4.png" />
 
@@ -76,6 +77,7 @@ trong 1 địa chỉ ip nằm trong rải đã cho.
 - Trong ví dụ này DHCP server sẽ khai báo default lease time, maximum lease time và các giá trị cấu hình mạng
 cho tất cả clients cùng hay # subnet(khác với ví dụ trên là áp dụng riêng cho các client trong cùng 1 subnet)
 - Tương tự tôi khai báo vào file conf như sau:
+
 `default-lease-time 600;
 max-lease-time 7200;
 option subnet-mask 255.255.255.0;
@@ -86,6 +88,7 @@ option domain-search "example.com";
 subnet 10.0.1.0 netmask 255.255.255.0 {
    range 10.0.1.21 10.0.1.30;
 }`
+
 <img src="http://i.imgur.com/JYSJSrh.png" />
 
 - Kiểm tra trên client
@@ -96,6 +99,7 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 - Để đăng kí địa chỉ ip dựa trên địa chỉ MAC của card mạng, tôi sử dụng thông số hardware ethernet cùng với
 khai báo host.
 - Với kiểu khai báo này thì card mạng có địa chỉ Mac 00-0C-29-FE-01-4E sẽ luôn nhận địa chỉ 10.0.1.32
+
 `default-lease-time 600;
 max-lease-time 7200;
 option subnet-mask 255.255.255.0;
@@ -110,8 +114,8 @@ host WIN7 {
    option host-name "win7.example.com";
    hardware ethernet 00:0C:29:FE:01:4E;
    fixed-address 10.0.1.32;
-}
-`
+}`
+
 <img src="http://i.imgur.com/NOpapxF.png" />
 
 <a name="2d"></a>
@@ -172,22 +176,27 @@ trong /etc/sysconfig/dhcrelay với chỉ thị "INTERFACES".
 - Set IP trên card VMnet2 nối với DHCP relay agent.
 <img src="http://i.imgur.com/Cd954IA.png" />
 
-- Cấu hình file conf để cấp ip cho subnet 1.
-`subnet 10.0.0.0 netmask 255.255.255.0 {
-	option routers					10.0.0.1;
+- Cấu hình file conf để cấp ip cho subnet 1:
+
+`subnet 10.0.1.0 netmask 255.255.255.0 {
+	option routers					10.0.1.2;
 	option subnet-mask 				255.255.255.0;
 	option domain-search 			"example.com";
-	option domain-name-servers 		10.0.0.1;
+	option domain-name-servers 		10.0.1.2;
 	option time-offset 				-18000;		#Eastern Standard Time
-	range 10.0.0.11 10.0.0.20;
+	range 10.0.1.10 10.0.1.100;
 }`
+
 <img src="http://i.imgur.com/DdxjUEC.png" />
 
 - Cấu hình định tuyến tĩnh đến subnet 1 và kiểm tra lại bảng định tuyến.
-`ip route add `
+
+`ip route add 10.0.1.0/24 via 10.0.2.2
+route -n`
+
 <img src="http://i.imgur.com/A3UOaBq.png" />
 
-- Cuối cùng khởi động lại dịch vụ dhcp: service dhcpd restart.
+- Cuối cùng khởi động lại dịch vụ dhcp: "service dhcpd restart".
 
 #### b.Cấu hình trên dhcp relay agent
 - Set IP trên card VMnet2 nối với DHCP server và VMnet1 nối với subnet 1.
@@ -199,7 +208,7 @@ trong /etc/sysconfig/dhcrelay với chỉ thị "INTERFACES".
 - Chỉnh sửa file /etc/sysconfig/dhcrelay.
 <img src="http://i.imgur.com/JBrxUTf.png" />
 
-- Cuối cùng khởi động lại dịch vụ dhcrelay: service dhcrelay restart.
+- Cuối cùng khởi động lại dịch vụ dhcrelay: "service dhcrelay restart".
 
 #### c.Kiểm tra ip trên client
 - win7:
