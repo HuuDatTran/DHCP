@@ -53,16 +53,16 @@ cho DHCP server công nhận là có 1 địa chỉ trong subnet đó, kể cả
 thì nó sẽ được cấp động.
 - Trong ví dụ này, có các tùy chọn chung cho các clients trong subnet được khai báo.Các clients được đăng kí
 trong 1 địa chỉ ip nằm trong rải đã cho.
-- Bạn khai báo vào file /etc/dhcp/dhcpd.conf như sau:
+- Bạn khai báo vào file  /etc/dhcp/dhcpd.conf  như sau:
 
-`subnet 10.0.1.0 netmask 255.255.255.0 {
-	option routers					10.0.0.1;
-	option subnet-mask 				255.255.255.0;
-	option domain-search 			"example.com";
-	option domain-name-servers 		10.0.1.1;
+subnet *subnet* netmask *netmask* {
+	option routers					*default gateway*;
+	option subnet-mask 				...;
+	option domain-search 			...;
+	option domain-name-servers 		...;
 	option time-offset 				-18000;		#Eastern Standard Time
-	range 10.0.1.11 10.0.1.20;
-}`
+	range *Start IP* *End IP*;
+}
 
 <img src="http://i.imgur.com/HXwhXF4.png" />
 
@@ -80,16 +80,16 @@ trong 1 địa chỉ ip nằm trong rải đã cho.
 cho tất cả clients cùng hay # subnet(khác với ví dụ trên là áp dụng riêng cho các client trong cùng 1 subnet)
 - Tương tự tôi khai báo vào file conf như sau:
 
-`default-lease-time 600;
-max-lease-time 7200;
-option subnet-mask 255.255.255.0;
-option broadcast-address 10.0.1.255;
-option routers 10.0.1.1;
-option domain-name-servers 10.0.0.1;
-option domain-search "example.com";
-subnet 10.0.1.0 netmask 255.255.255.0 {
-   range 10.0.1.21 10.0.1.30;
-}`
+default-lease-time ...;
+max-lease-time ...;
+option subnet-mask ...;
+option broadcast-address ...;
+option routers ...;
+option domain-name-servers ...;
+option domain-search ...;
+subnet ... netmask ... {
+   range ... ...;
+}
 
 <img src="http://i.imgur.com/JYSJSrh.png" />
 
@@ -103,21 +103,21 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 khai báo host.
 - Với kiểu khai báo này thì card mạng có địa chỉ Mac 00-0C-29-FE-01-4E sẽ luôn nhận địa chỉ 10.0.1.32
 
-`default-lease-time 600;`
-`max-lease-time 7200;`
-`option subnet-mask 255.255.255.0;`
-`option broadcast-address 10.0.1.255;`
-`option routers 10.0.1.1;`
-`option domain-name-servers 10.0.1.1;`
-`option domain-search "example.com";`
-`subnet 10.0.1.0 netmask 255.255.255.0 {`
+default-lease-time ...;
+max-lease-time ...;
+option subnet-mask ...;
+option broadcast-address ...; 
+option routers ...; 
+option domain-name-servers ...; 
+option domain-search ...; 
+subnet ... netmask ... { 
    
-`}`
-`host WIN7 {`
-`   option host-name "win7.example.com";`
-`   hardware ethernet 00:0C:29:FE:01:4E;`
-`   fixed-address 10.0.1.32;`
-`}`
+} 
+host *host name* { 
+    option host-name ...; 
+    hardware ethernet *MAC of card*; 
+    fixed-address *IP fixed*; 
+} 
 
 <img src="http://i.imgur.com/NOpapxF.png" />
 
@@ -128,31 +128,90 @@ khai báo host.
 - Mô hình mạng như sau:
 <img src="http://i.imgur.com/4OUyfVL.png" />
 
-- Khai báo trên file conf của dhcp server:
-<img src="">
+- Khai báo trên file conf của dhcp server và cấu hình ip cho dhcp server: 192.168.1.254
+subnet ... netmask ... {   
+} 
+shared-network 11-22 { 
+subnet ... netmask ... { 
+ 	default-lease-time ...; 
+ 	max-lease-time ...; 
+ 	pool { 
+ 	option routers ...; 
+ 	range ... ...; 
+ 	} 
+} 
+ 	subnet ... netmask ... { 
+ 	default-lease-time ...; 
+ 	max-lease-time ...; 
+ 	pool { 
+ 	option routers ...; 
+ 	range ... ...; 
+ 	} 
+} 
+} 
+
+- Cấu hình định tuyến tĩnh đến 2 vlan và show bảng định tuyến.
+ip route add vlan1/24 via IpRouter
+ip route add vlan2/24 via IpRouter
+route -n
+<img src="http://i.imgur.com/wgoi6bj.png" />
+
+- Cấu hình Router:
+ interface FastEthernet0/0 
+ no shutdown 
+ ip address 192.168.1.1 255.255.255.0 
+ interface FastEthernet0/1 
+ no shutdown 
+ interface FastEthernet0/1.11 
+  encapsulation dot1Q 11 
+  ip address 10.0.11.1 255.255.255.0 
+  ip helper-address IpDHCPServer 
+ interface FastEthernet0/1.22 
+  encapsulation dot1Q 22 
+  ip address 10.0.22.1 255.255.255.0 
+  ip helper-address IpDHCPServer
+
+- Cấu hình Switch:
+ Vlan 11 
+ Vlan 22 
+ interface range f0/1-12 
+ switchport mode access 
+ switchport access vlan 11 
+ interface range f0/13-20 
+ switchport mode access 
+ switchport access vlan 22 
+ interface range f0/21-24 
+ switchport mode trunk 
+
+- Reload lại dịch vụ dhcp trên server và kiểm tra ip trên 2 client thuộc 2 vlan # nhau.
+- vlan 11:
+<img src="http://i.imgur.com/UeoYABa.png" />
+
+- vlan 22:
+<img src="http://i.imgur.com/s8LhlRz.jpg" />s
 
 <a name="2e"></a>
 #### e.Group Declaration
 - Khai báo group được sử dụng để áp các thông số chung cho nhóm đấy.
 - Có thể là 1 nhóm shared-network, subnets hoặc các host.
 - Ở đây tôi sẽ ví dụ về 1 nhóm các host.
-`group {
-   option routers                  10.0.1.1;
-   option subnet-mask              255.255.255.0;
+ group {
+   option routers                  ...;
+   option subnet-mask              ...;
    option domain-search              "example.com";
-   option domain-name-servers       10.0.1.1;
+   option domain-name-servers       ...;
    option time-offset              -18000;     # Eastern Standard Time
    host win7 {
       option host-name "win7.example.com";
-      hardware ethernet 00:A0:78:8E:9E:AA;
-      fixed-address 10.0.1.55;
+      hardware ethernet ...;
+      fixed-address IPfixed;
    }
    host win8 {
       option host-name "win8.example.com";
-      hardware ethernet 00:50:56:C0:00:01;
-      fixed-address 10.0.1.56;
+      hardware ethernet ...;
+      fixed-address IPfixed;
    }
-}`
+} 
 
 <img src="http://i.imgur.com/V2GY7Vi.png" />
 
@@ -181,21 +240,21 @@ trong /etc/sysconfig/dhcrelay với chỉ thị "INTERFACES".
 
 - Cấu hình file conf để cấp ip cho subnet 1:
 
-`subnet 10.0.1.0 netmask 255.255.255.0 {
-	option routers					10.0.1.2;
-	option subnet-mask 				255.255.255.0;
+ subnet ... netmask ...{
+	option routers					...;
+	option subnet-mask 				...;
 	option domain-search 			"example.com";
-	option domain-name-servers 		10.0.1.2;
+	option domain-name-servers 		...;
 	option time-offset 				-18000;		#Eastern Standard Time
-	range 10.0.1.10 10.0.1.100;
-}`
+	range ... ...;
+} 
 
-<img src="http://i.imgur.com/DdxjUEC.png" />
+<img src="http://i.imgur.com/0uEEt2M.png" />
 
 - Cấu hình định tuyến tĩnh đến subnet 1 và kiểm tra lại bảng định tuyến.
 
-`ip route add 10.0.1.0/24 via 10.0.2.2
-route -n`
+ ip route add 10.0.1.0/24 via 10.0.2.2 
+ route -n 
 
 <img src="http://i.imgur.com/A3UOaBq.png" />
 
