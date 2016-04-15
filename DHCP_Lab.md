@@ -128,7 +128,8 @@ host *host name* {
 - Mô hình mạng như sau:
 <img src="http://i.imgur.com/4OUyfVL.png" />
 
-- Khai báo trên file conf của dhcp server và cấu hình ip cho dhcp server: 192.168.1.254
+- Khai báo trên file conf của dhcp server và cấu hình ip cho dhcp server: 
+
 subnet ... netmask ... {   
 } 
 shared-network 11-22 { 
@@ -151,9 +152,11 @@ subnet ... netmask ... {
 } 
 
 - Cấu hình định tuyến tĩnh đến 2 vlan và show bảng định tuyến.
-ip route add vlan1/24 via IpRouter
-ip route add vlan2/24 via IpRouter
-route -n
+
+`ip route add vlan1/24 via IpRouter`
+`ip route add vlan2/24 via IpRouter`
+`route -n`
+
 <img src="http://i.imgur.com/wgoi6bj.png" />
 
 - Cấu hình Router:
@@ -185,10 +188,12 @@ route -n
 
 - Reload lại dịch vụ dhcp trên server và kiểm tra ip trên 2 client thuộc 2 vlan # nhau.
 - vlan 11:
+
 <img src="http://i.imgur.com/UeoYABa.png" />
 
 - vlan 22:
-<img src="http://i.imgur.com/s8LhlRz.jpg" />s
+
+<img src="http://i.imgur.com/s8LhlRz.jpg" height=50% width=50% />
 
 <a name="2e"></a>
 #### e.Group Declaration
@@ -265,18 +270,22 @@ trong /etc/sysconfig/dhcrelay với chỉ thị "INTERFACES".
 <img src="http://i.imgur.com/SUNCu8N.png" />
 
 - Chỉnh sửa file /etc/sysctl.conf.forward:ta chỉnh số, nếu có 1 server thì là 1, 2 server thì là 2.
+
 <img src="http://i.imgur.com/SpT4FwW.png" />
 
 - Chỉnh sửa file /etc/sysconfig/dhcrelay.
+
 <img src="http://i.imgur.com/JBrxUTf.png" />
 
 - Cuối cùng khởi động lại dịch vụ dhcrelay: "service dhcrelay restart".
 
 #### c.Kiểm tra ip trên client
 - win7:
+
 <img src="http://i.imgur.com/EPQWBKx.png" />
 
 - win8:
+
 <img src="http://i.imgur.com/dHINSTc.png" />
 
 
