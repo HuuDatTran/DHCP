@@ -55,6 +55,7 @@ thì nó sẽ được cấp động.
 trong 1 địa chỉ ip nằm trong rải đã cho.
 - Bạn khai báo vào file  /etc/dhcp/dhcpd.conf  như sau:
 
+```sh
 subnet *subnet* netmask *netmask* {
 	option routers					*default gateway*;
 	option subnet-mask 				...;
@@ -63,6 +64,7 @@ subnet *subnet* netmask *netmask* {
 	option time-offset 				-18000;		#Eastern Standard Time
 	range *Start IP* *End IP*;
 }
+```
 
 <img src="http://i.imgur.com/HXwhXF4.png" />
 
@@ -80,6 +82,7 @@ subnet *subnet* netmask *netmask* {
 cho tất cả clients cùng hay # subnet(khác với ví dụ trên là áp dụng riêng cho các client trong cùng 1 subnet)
 - Tương tự tôi khai báo vào file conf như sau:
 
+```sh
 default-lease-time ...;
 max-lease-time ...;
 option subnet-mask ...;
@@ -90,6 +93,7 @@ option domain-search ...;
 subnet ... netmask ... {
    range ... ...;
 }
+```
 
 <img src="http://i.imgur.com/JYSJSrh.png" />
 
@@ -103,6 +107,7 @@ subnet ... netmask ... {
 khai báo host.
 - Với kiểu khai báo này thì card mạng có địa chỉ Mac 00-0C-29-FE-01-4E sẽ luôn nhận địa chỉ 10.0.1.32
 
+```sh
 default-lease-time ...;
 max-lease-time ...;
 option subnet-mask ...;
@@ -118,6 +123,7 @@ host *host name* {
     hardware ethernet *MAC of card*; 
     fixed-address *IP fixed*; 
 } 
+```
 
 <img src="http://i.imgur.com/NOpapxF.png" />
 
@@ -130,6 +136,7 @@ host *host name* {
 
 - Khai báo trên file conf của dhcp server và cấu hình ip cho dhcp server: 
 
+```sh
 subnet ... netmask ... {   
 } 
 shared-network 11-22 { 
@@ -150,16 +157,21 @@ subnet ... netmask ... {
  	} 
 } 
 } 
+```
 
 - Cấu hình định tuyến tĩnh đến 2 vlan và show bảng định tuyến.
 
-`ip route add vlan1/24 via IpRouter`
-`ip route add vlan2/24 via IpRouter`
-`route -n`
+```sh
+ip route add vlan1/24 via IpRouter
+ip route add vlan2/24 via IpRouter
+route -n
+```
 
 <img src="http://i.imgur.com/wgoi6bj.png" />
 
 - Cấu hình Router:
+
+```sh
  interface FastEthernet0/0 
  no shutdown 
  ip address 192.168.1.1 255.255.255.0 
@@ -173,8 +185,11 @@ subnet ... netmask ... {
   encapsulation dot1Q 22 
   ip address 10.0.22.1 255.255.255.0 
   ip helper-address IpDHCPServer
+```
 
 - Cấu hình Switch:
+
+```sh
  Vlan 11 
  Vlan 22 
  interface range f0/1-12 
@@ -185,6 +200,7 @@ subnet ... netmask ... {
  switchport access vlan 22 
  interface range f0/21-24 
  switchport mode trunk 
+```
 
 - Reload lại dịch vụ dhcp trên server và kiểm tra ip trên 2 client thuộc 2 vlan # nhau.
 - vlan 11:
@@ -200,6 +216,8 @@ subnet ... netmask ... {
 - Khai báo group được sử dụng để áp các thông số chung cho nhóm đấy.
 - Có thể là 1 nhóm shared-network, subnets hoặc các host.
 - Ở đây tôi sẽ ví dụ về 1 nhóm các host.
+
+```sh
  group {
    option routers                  ...;
    option subnet-mask              ...;
@@ -217,6 +235,7 @@ subnet ... netmask ... {
       fixed-address IPfixed;
    }
 } 
+```
 
 <img src="http://i.imgur.com/V2GY7Vi.png" />
 
@@ -245,6 +264,7 @@ trong /etc/sysconfig/dhcrelay với chỉ thị "INTERFACES".
 
 - Cấu hình file conf để cấp ip cho subnet 1:
 
+```sh
  subnet ... netmask ...{
 	option routers					...;
 	option subnet-mask 				...;
@@ -253,13 +273,15 @@ trong /etc/sysconfig/dhcrelay với chỉ thị "INTERFACES".
 	option time-offset 				-18000;		#Eastern Standard Time
 	range ... ...;
 } 
-
+```
 <img src="http://i.imgur.com/0uEEt2M.png" />
 
 - Cấu hình định tuyến tĩnh đến subnet 1 và kiểm tra lại bảng định tuyến.
 
+```sh
  ip route add 10.0.1.0/24 via 10.0.2.2 
- route -n 
+ route -n 	
+```
 
 <img src="http://i.imgur.com/A3UOaBq.png" />
 
