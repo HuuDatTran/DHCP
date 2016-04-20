@@ -74,6 +74,7 @@ thì nó sẽ được cấp động.
 <img src="http://i.imgur.com/EJBMCou.png" />
 
 - Các bạn làm tương tự với các máy ảo còn lại.
+
 ##### b.Đặt IP cho máy.
 - Cấu hình IP cho DHCP server:bạn phải tạo 1 file ifcfg-eth1 là file cấu hình cho card mạng VMNet1 mới tạo.
 Do nó k có sẵn nên t copy từ file ifcfg-eth0 và chỉnh sửa cho phù hợp.Các file này trong đường dẫn */etc/sysconfig/network-scripts*
@@ -104,7 +105,7 @@ subnet *subnet* netmask *netmask* {
 
 <img src="http://i.imgur.com/HXwhXF4.png" />
 
-d. Start dịch vụ và test
+##### d. Start dịch vụ và test
 - Start dịch vụ dhcp trên server.
 - Xin cấp ip từ dhcp server của client.
 <img src="http://i.imgur.com/bf2zS2I.png" />
@@ -242,7 +243,7 @@ subnet ... netmask ... {
 } 
 } 
 ```
-*11-22* : tên bạn tùy chọn
+*11-22* : tên bạn tùy chọn, 
 *subnet* : các subnet bạn muốn cấp IP.
 - Cấu hình định tuyến tĩnh đến 2 vlan và show bảng định tuyến.
 
@@ -251,7 +252,6 @@ ip route add vlan1/24 via IpRouter
 ip route add vlan2/24 via IpRouter
 route -n
 ```
-
 <img src="http://i.imgur.com/wgoi6bj.png" />
 
 ###### b. Cấu hình Router:
@@ -272,7 +272,7 @@ route -n
   ip helper-address IpDHCPServer
 ```
 
-####### c.Cấu hình Switch:
+###### c.Cấu hình Switch:
 
 ```sh
  Vlan 11 
@@ -286,7 +286,7 @@ route -n
  interface range f0/21-24 
  switchport mode trunk 
 ```
-####### d.Restart dịch vụ và test
+###### d.Restart dịch vụ và test
 - Restart lại dịch vụ dhcp trên server và kiểm tra ip trên 2 client thuộc 2 vlan # nhau.
 - vlan 11:
 
@@ -334,6 +334,7 @@ route -n
    }
 } 
 ```
+
 <img src="http://i.imgur.com/V2GY7Vi.png" />
 
 - Kiểm tra trên client win7
@@ -354,6 +355,7 @@ route -n
 	<li>card VMNet1 nối với mạng lan, IP:10.0.1.2</li>
 </ul>
 - 2 client win7, win8 sử dụng card VMNet1 để nhận ip động.
+
 #### 2. Giới thiệu
 - DHCP relay agent cho phép chuyển các yêu cầu dhcp và bootp từ 1 subnet ko có dhcp server trong đấy,
 tới 1 hoặc nhiều dhcp server trên các subnet khác.
