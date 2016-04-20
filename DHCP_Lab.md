@@ -75,7 +75,7 @@ thì nó sẽ được cấp động.
 
 - Các bạn làm tương tự với các máy ảo còn lại.
 
-##### b.Đặt IP cho máy.
+###### b.Đặt IP cho máy.
 - Cấu hình IP cho DHCP server:bạn phải tạo 1 file ifcfg-eth1 là file cấu hình cho card mạng VMNet1 mới tạo.
 Do nó k có sẵn nên t copy từ file ifcfg-eth0 và chỉnh sửa cho phù hợp.Các file này trong đường dẫn */etc/sysconfig/network-scripts*
 ```sh
@@ -89,7 +89,7 @@ vi /etc/sysconfig/network-scriptsifcfg-eth1
 - Kiểm tra IP: `ip a`
 <img src="http://i.imgur.com/pPcfMsq.png" />
 
-##### c.Khai báo file config
+###### c.Khai báo file config
 - Bạn khai báo vào file  /etc/dhcp/dhcpd.conf  như sau:
 
 ```sh
@@ -105,7 +105,7 @@ subnet *subnet* netmask *netmask* {
 
 <img src="http://i.imgur.com/HXwhXF4.png" />
 
-##### d. Start dịch vụ và test
+###### d. Start dịch vụ và test
 - Start dịch vụ dhcp trên server.
 - Xin cấp ip từ dhcp server của client.
 <img src="http://i.imgur.com/bf2zS2I.png" />
