@@ -19,17 +19,18 @@
 
 <a name="I"></a>
 ### I.Cài đặt DHCP server
-Trước tiên bạn cài đặt gói DHCP với quyền root.
-<img src="http://i.imgur.com/8Ew5WCX.png" />
+- Trong các bài labs này, tôi dùng hđh centos 6.7 làm DHCP Server và DHCP Relay agent.
+- Trước tiên bạn cài đặt gói DHCP với quyền root.
+`yum -y install dhcp`
 
-Sau khi cài, sẽ xuất hiện file configuration tại đường dẫn /etc/dhcp/dhcpd.conf, nhưng chỉ là file trống.
+- Sau khi cài, sẽ xuất hiện file configuration tại đường dẫn /etc/dhcp/dhcpd.conf, nhưng chỉ là file trống.
 <img src="http://i.imgur.com/rXNdDXf.png" />
 
 File configuration tương tự được lưu tại đường dẫn /usr/share/doc/dhcp-4.1.1/dhcpd.conf.sample, bạn
 có thể dùng file này để cấu hình file configuration của bạn vì nó hướng dẫn rất chi tiết.
 
 <a name="II"></a>
-### II.Labs
+### II.Một số mô hình DHCP đơn giản
 - Bước đầu tiên để cấu hình DHCP server là bạn phải tạo 1 file configuration ở đó lưu trữ thông tin về mạng
 cho clients.Sử dụng file này để khai báo các tùy chọn riêng và chung cho hệ thống các clients.
 - Có 2 kiểu báo cáo:
@@ -43,9 +44,9 @@ hoặc áp dụng 1 nhóm các thông số tới 1 nhóm các khai báo.
 <a name="1"></a>
 #### 1.Subnet Declaration
 ##### 1.1.Mô hình
-<img src="http://i.imgur.com/SZo1LW9.png" />
+<img src="http://i.imgur.com/OC14xPD.png" />
 
-- DHCP server có tên Centos2 chạy hđh Centos 6.7, sử dụng card VMnet1 trên Vmware và có IP:10.0.1.1.
+- DHCP server sử dụng card VMnet1 trên Vmware và có IP:10.0.1.1.
 - Client chạy hđh win7, sử dụng card VMnet1 trên vmware(bắt buộc cùng card với DHCP server), sử dụng dịch vụ dhcp để nhận IP.
 - Dải IP được cấp: 10.0.1.10 - 10.0.1.20
 
@@ -117,7 +118,7 @@ subnet *subnet* netmask *netmask* {
 <a name="2"></a>
 #### 2.Range Parameter
 ##### 2.1.Mô hình
-<img src="http://i.imgur.com/euEnydQ.png" />
+<img src="http://i.imgur.com/bjTaOxt.png" />
 
 - Cấu hình Server và Client như phần 1
 - Dải IP được cấp: 10.0.1.21 - 10.0.1.30 
@@ -155,7 +156,7 @@ subnet ... netmask ... {
 <a name="3"></a>
 #### 3.Static IP Address Using DHCP
 ##### 3.1.Mô hình
-<img src="http://i.imgur.com/fwP5Z4n.png" />
+<img src="http://i.imgur.com/JHimYuV.png" />
 
 - Cấu hình Server và Client như phần 1
 - IP được fix cố định cho client: 10.0.1.32 dựa trên địa chỉ MAC:00-0C-29-FE-01-4E của client.
@@ -193,8 +194,8 @@ host *host name* {
 
 <a name="4"></a>
 #### 4.Shared-network Declaration
-##### 4.1.Mô hình 
-<img src="http://i.imgur.com/4OUyfVL.png" />
+##### 4.1.Mô hình mạng
+<img src="http://i.imgur.com/YZsue5P.png" />
 
 - DHCP server, có 1 kết nối tới Router, IP:192.168.1.254, ở đây tôi sử dụng card VMnet1.
 - Router:
@@ -298,8 +299,8 @@ route -n
 
 <a name="5"></a>
 #### 5.Group Declaration
-##### 5.1 Mô hình
-<img src="http://i.imgur.com/JlJvJro.png" />
+##### 5.1 Mô hình mạng
+<img src="http://i.imgur.com/lVbHn0j.png" />
 - Cấu hình Server và Client như phần 1
 - IP được fix cố định cho client win7: 10.0.1.55 dựa trên địa chỉ MAC:00-0C-29-FE-01-4E .
 - IP được fix cố định cho client win8: 10.0.1.56 dựa trên địa chỉ MAC:00-50-56-C0-00-01 .
@@ -345,8 +346,8 @@ route -n
 
 <a name="III"></a>
 ### III.DHCP Relay Agent
-#### 1. Mô hình mạng như sau:
-<img src="http://i.imgur.com/sK8QbiJ.png" />
+#### 1. Mô hình mạng.
+<img src="http://i.imgur.com/4UvSBwI.png" />
 
 - DHCP server: sử dụng card VMNet2 nối với DHCP relay agent, IP:10.0.2.1
 - DHCP relay agent:
